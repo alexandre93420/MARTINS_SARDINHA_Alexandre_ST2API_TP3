@@ -19,8 +19,7 @@ public partial class WeatherCityDetailsViewModel : BaseApiViewModel
         {
             await map.OpenAsync(Weather.Lat, Weather.Lon, new MapLaunchOptions
             {
-                // TODO : use City Name
-                Name = Weather.Timezone,
+                Name = Weather.Name,
                 NavigationMode = NavigationMode.None
             });
         }

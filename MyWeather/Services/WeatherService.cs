@@ -74,10 +74,28 @@ namespace MyWeather.Services
             if (response.IsSuccessStatusCode)
             {
                 result = await response.Content.ReadFromJsonAsync<Weather>();
+
                 result.Name = city.Name;
+
                 result.Current.dDt = DateTime.SpecifyKind(epochStart.AddSeconds(result.Current.Dt), DateTimeKind.Utc);
                 result.Current.dSunrise = DateTime.SpecifyKind(epochStart.AddSeconds(result.Current.Sunrise), DateTimeKind.Utc);
                 result.Current.dSunset = DateTime.SpecifyKind(epochStart.AddSeconds(result.Current.Sunset), DateTimeKind.Utc);
+
+                if (result.Hourly.Count != 0)
+                    for (int i=0; i < result.Hourly.Count;i++)
+                    {
+                        result.Hourly[i].dDt = DateTime.SpecifyKind(epochStart.AddSeconds(result.Hourly[i].Dt), DateTimeKind.Utc);
+                    }
+
+                if (result.Daily.Count != 0)
+                    for (int i = 0; i < result.Daily.Count; i++)
+                    {
+                        result.Daily[i].dDt = DateTime.SpecifyKind(epochStart.AddSeconds(result.Daily[i].Dt), DateTimeKind.Utc);
+                        result.Daily[i].dSunrise = DateTime.SpecifyKind(epochStart.AddSeconds(result.Daily[i].Sunrise), DateTimeKind.Utc);
+                        result.Daily[i].dSunset = DateTime.SpecifyKind(epochStart.AddSeconds(result.Daily[i].Sunset), DateTimeKind.Utc);
+                        result.Daily[i].dMoonrise = DateTime.SpecifyKind(epochStart.AddSeconds(result.Daily[i].Moonrise), DateTimeKind.Utc);
+                        result.Daily[i].dMoonset = DateTime.SpecifyKind(epochStart.AddSeconds(result.Daily[i].Moonset), DateTimeKind.Utc);
+                    }
 
             }
 

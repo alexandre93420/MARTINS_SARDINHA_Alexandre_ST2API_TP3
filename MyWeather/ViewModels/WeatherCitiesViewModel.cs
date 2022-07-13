@@ -65,9 +65,17 @@ public partial class WeatherCitiesViewModel : BaseApiViewModel
         if (weather == null)
             return;
 
+        CityTbl city = new CityTbl() {
+            Lon = weather.Lon,
+            Lat = weather.Lat
+        };
+        var weatherCity = await weatherService.GetWeatherForCity(city);
+
+        weatherCity.Name = weather.Name;
+
         await Shell.Current.GoToAsync(nameof(WeatherCityDetailsPage), true, new Dictionary<string, object>
         {
-            {"Weather", weather }
+            {"Weather", weatherCity }
         });
     }
 

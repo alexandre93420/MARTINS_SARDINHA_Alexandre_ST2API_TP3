@@ -4,14 +4,14 @@
              x:Class="MyWeather.Views.AddCityPage"
              Title="Edit City">
 
-    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*" ColumnSpacing="5">
+    <Grid RowDefinitions="*,Auto" ColumnDefinitions="*,*,*" ColumnSpacing="5" BackgroundColor="{AppThemeBinding Dark={StaticResource DarkBackground}, Light={StaticResource LightBackground}}">
         <TableView Intent="Data" Grid.Row="0" Grid.ColumnSpan="3">
             <TableRoot>
-                <TableSection Title="City Info">
-                    <EntryCell Label="City ID" Text="{Binding CityID}" IsEnabled="False" />
-                    <EntryCell Label="City Name" Text="{Binding CityName}" />
-                    <EntryCell Label="City longitude" Text="{Binding CityLon}" />
-                    <EntryCell Label="City latitude" Text="{Binding CityLat}" />
+                <TableSection Title="Edit City Info">
+                    <EntryCell Label="City ID: " Text="{Binding CityID}" IsEnabled="False" LabelColor="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}"/>
+                    <EntryCell Label="City Name: " Text="{Binding CityName}" LabelColor="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}"/>
+                    <EntryCell Label="City longitude: " Text="{Binding CityLon}" LabelColor="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}"/>
+                    <EntryCell Label="City latitude: " Text="{Binding CityLat}" LabelColor="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}"/>
                 </TableSection>
             </TableRoot>
         </TableView>

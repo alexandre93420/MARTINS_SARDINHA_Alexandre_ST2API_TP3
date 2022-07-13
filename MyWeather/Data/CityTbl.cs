@@ -15,6 +15,7 @@ namespace MyWeather.Data
         public string Name { get; set; }
         public double Lon { get; set; }
         public double Lat { get; set; }
+        public string Photo { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime UpdateDate { get; set; }
 
@@ -23,6 +24,7 @@ namespace MyWeather.Data
             Name = "";
             Lon = 0.0;
             Lat = 0.0;
+            Photo = "mycity.jpg";
             CreationDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
             UpdateDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         }
@@ -32,6 +34,7 @@ namespace MyWeather.Data
             Name = sName;
             Lon = dLon;
             Lat = dLat;
+            Photo = "mycity.jpg";
             CreationDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
             UpdateDate = DateTime.SpecifyKind(DateTime.Now, DateTimeKind.Utc);
         }

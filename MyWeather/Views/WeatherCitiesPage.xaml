@@ -56,11 +56,31 @@
                                     <VerticalStackLayout
                                         Grid.Column="1"
                                         Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name, StringFormat='{0}'}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Current.Weather[0].Main, StringFormat='Main: {0}'}" />
-                                        <Label Style="{StaticResource MicroLabel}" Text="{Binding Current.Weather[0].Description, StringFormat='Description: {0}'}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Current.Temp, StringFormat='Temperature: {0} °C'}" />
-                                        <Label Style="{StaticResource MicroLabel}" Text="{Binding Current.Humidity, StringFormat='Humidity: {0} %'}" />
+                                        <Grid ColumnDefinitions="*,*,*,*" RowDefinitions="*,*,*,*,*,*">
+
+                                            <Label Style="{StaticResource MediumLabel}" Text="{Binding Name, StringFormat='{0}'}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="{StaticResource Secondary}" FontAttributes="Bold"/>
+
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Weather[0].Main, StringFormat='{0}'}" Grid.Row="1" Grid.Column="0"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Weather[0].Description, StringFormat='{0}'}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" TextColor="Red"/>
+
+                                            <Label Style="{StaticResource SmallLabel}" Text="Temp" Grid.Row="3" Grid.Column="0"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="Humidity" Grid.Row="4" Grid.Column="0"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="Pressure" Grid.Row="5" Grid.Column="0"/>
+
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Temp, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="1" FontAttributes="Bold"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Humidity, StringFormat='{0} %'}" Grid.Row="4" Grid.Column="1" FontAttributes="Bold"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Pressure, StringFormat='{0} hPa'}" Grid.Row="5" Grid.Column="1" FontAttributes="Bold"/>
+
+                                            <Label Style="{StaticResource SmallLabel}" Text="Feels like" Grid.Row="3" Grid.Column="2"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="Wind Speed" Grid.Row="4" Grid.Column="2"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="UV index" Grid.Row="5" Grid.Column="2"/>
+
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.FeelsLike, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="4" FontAttributes="Bold"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.WindSpeed, StringFormat='{0} m/s'}" Grid.Row="4" Grid.Column="4" FontAttributes="Bold"/>
+                                            <Label Style="{StaticResource SmallLabel}" Text="{Binding Current.Uvi, StringFormat='{0}'}" Grid.Row="5" Grid.Column="4" FontAttributes="Bold"/>
+
+
+                                        </Grid>
                                     </VerticalStackLayout>
                                 </Grid>
                             </Frame>
@@ -77,8 +97,12 @@
             IsEnabled="{Binding IsNotBusy}"
             Grid.Row="1"
             Grid.Column="0"
+            Grid.ColumnSpan="2"
             Style="{StaticResource ButtonOutline}"
-            Margin="8"/>
+            Margin="8"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            />
         
         <ActivityIndicator IsVisible="{Binding IsBusy}"
                            IsRunning="{Binding IsBusy}"

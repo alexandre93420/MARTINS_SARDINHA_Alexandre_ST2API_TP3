@@ -33,7 +33,7 @@
                         HeightRequest="160"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="city_not_found.png"
+                        Source="mycity.jpg"
                         WidthRequest="160"/>
                         <!-- Use City image instead -->
                 </Frame>
@@ -46,40 +46,155 @@
                     WidthRequest="200" 
                     Margin="8"
                     Style="{StaticResource ButtonOutline}"/>
-                <Image
+                
+                <Label Style="{StaticResource MediumLabel}" Text="Sunrise and sunset" BackgroundColor="LightGray"/>
+                
+                
+                <Grid ColumnDefinitions="*,*,*" RowDefinitions="Auto,Auto,Auto" RowSpacing="2" ColumnSpacing="2" >
+                    <Label Text="🌅" FontSize="72" Grid.Row="0" Grid.Column="0" HorizontalOptions="Center" />
+                    <Label Text="Sunrise" Grid.Row="1" Grid.Column="0" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                    <Label Text="{Binding Weather.Current.dSunrise, StringFormat='{0:HH mm} UTC'}" Style="{StaticResource MicroLabel}" Grid.Row="2" Grid.Column="0" HorizontalOptions="Center"/>
+                    <Label Text="☀️" FontSize="72" Grid.Column="1" HorizontalOptions="Center"/>
+                    <Label Text="Daylight" Grid.Row="1" Grid.Column="1" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                    <Label Text="🌇" FontSize="72" Grid.Column="2" HorizontalOptions="Center"/>
+                    <Label Text="Sunset" Grid.Row="1" Grid.Column="3" HorizontalOptions="Center" FontAttributes="Bold" TextColor="Black"/>
+                    <Label Text="{Binding Weather.Current.dSunset, StringFormat='{0:HH mm} UTC'}" Style="{StaticResource MicroLabel}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center"/>
+
+                </Grid>
+
+         
+                <Label Style="{StaticResource MediumLabel}" Text="5 days forcast" BackgroundColor="LightGray"/>
+
+                <Grid ColumnDefinitions="*,*,*,*,*,*" RowDefinitions="*,Auto,*,*" RowSpacing="2" ColumnSpacing="2" BackgroundColor="Black">
+
+                    <!-- 1st Column -->
+                    <BoxView Grid.Row="0" Grid.Column="0" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="Date" Grid.Row="0" Grid.Column="0" FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="0" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="Weather" Grid.Row="1" Grid.Column="0"/>
+                    <BoxView Grid.Row="2" Grid.Column="0" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="Max" Grid.Row="2" Grid.Column="0"/>
+                    <BoxView Grid.Row="3" Grid.Column="0" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="Min" Grid.Row="3" Grid.Column="0"/>
+
+                    <!-- 2nd Column -->
+                    <BoxView Grid.Row="0" Grid.Column="1" Color="White"></BoxView>
+                    <Label Grid.Row="0" Grid.Column="1" 
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallLabel}" 
+                           Text="Today"
+                           FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="1" Color="White"></BoxView>
+                    <Image
+                        Grid.Row="1" Grid.Column="1"
                         Aspect="AspectFill"
-                        HeightRequest="160"
+                        HeightRequest="40"
+                        WidthRequest="40"
                         HorizontalOptions="Center"
                         VerticalOptions="Center"
-                        Source="{Binding Weather.Current.Weather[0].Icon, StringFormat='https://openweathermap.org/img/wn/{0}@2x.png'}"
-                        WidthRequest="160"/>
-                <Label Style="{StaticResource LargeLabel}" Text="{Binding Weather.Name}" />
-                <Label Style="{StaticResource MediumLabel}" Text="Sunrise and sunset:" />
-                <Label Style="{StaticResource MicroLabel}" Text="{Binding Weather.Current.dSunrise, StringFormat='Sunrise: {0}'}" />
-                <Label Style="{StaticResource MicroLabel}" Text="{Binding Weather.Current.dSunset, StringFormat='Sunset: {0}'}" />
+                        Source="{Binding Weather.Daily[0].Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}">
+                    </Image>
+                    <BoxView Grid.Row="2" Grid.Column="1" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[0].Temp.Max, StringFormat='{0} °C'}" Grid.Row="2" Grid.Column="1" HorizontalOptions="Center" TextColor="Red"/>
+                    <BoxView Grid.Row="3" Grid.Column="1" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[0].Temp.Min, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="1" HorizontalOptions="Center" TextColor="Blue"/>
 
-                <!--
-                "dt": 1657645534,
-                "sunrise": 1657598387,
-                "sunset": 1657655532,
-                "temp": 305.92,
-                "feels_like": 304.09,
-                "pressure": 1022,
-                "humidity": 23,
-                "dew_point": 282.08,
-                "uvi": 1.31,
-                "clouds": 0,
-                "visibility": 10000,
-                "wind_speed": 2.06,
-                "wind_deg": 30,
-                "weather": [
-                {
-                    "id": 800,
-                    "main": "Clear",
-                    "description": "clear sky",
-                    "icon": "01d"
-                }
-                -->
+                    <!-- 3rd Column -->
+                    <BoxView Grid.Row="0" Grid.Column="2" Color="White"></BoxView>
+                    <Label Grid.Row="0" Grid.Column="2" 
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallLabel}" 
+                           Text="{Binding Weather.Daily[1].dDt, StringFormat='{0:dd MMM}'}"
+                           FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="2" Color="White"></BoxView>
+                    <Image
+                        Grid.Row="1" Grid.Column="2"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Weather.Daily[1].Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}">
+                    </Image>
+                    <BoxView Grid.Row="2" Grid.Column="2" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[1].Temp.Max, StringFormat='{0} °C'}" Grid.Row="2" Grid.Column="2" HorizontalOptions="Center" TextColor="Red"/>
+                    <BoxView Grid.Row="3" Grid.Column="2" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[1].Temp.Min, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="2" HorizontalOptions="Center" TextColor="Blue"/>
+
+                    <!-- 4th Column -->
+                    <BoxView Grid.Row="0" Grid.Column="3" Color="White"></BoxView>
+                    <Label Grid.Row="0" Grid.Column="3" 
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallLabel}" 
+                           Text="{Binding Weather.Daily[2].dDt, StringFormat='{0:dd MMM}'}"
+                           FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="3" Color="White"></BoxView>
+                    <Image
+                        Grid.Row="1" Grid.Column="3"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Weather.Daily[2].Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}">
+                    </Image>
+                    <BoxView Grid.Row="2" Grid.Column="3" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[2].Temp.Max, StringFormat='{0} °C'}" Grid.Row="2" Grid.Column="3" HorizontalOptions="Center" TextColor="Red"/>
+                    <BoxView Grid.Row="3" Grid.Column="3" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[2].Temp.Min, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="3" HorizontalOptions="Center" TextColor="Blue"/>
+
+                    <!-- 5th Column -->
+                    <BoxView Grid.Row="0" Grid.Column="4" Color="White"></BoxView>
+                    <Label Grid.Row="0" Grid.Column="4" 
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallLabel}" 
+                           Text="{Binding Weather.Daily[3].dDt, StringFormat='{0:dd MMM}'}"
+                           FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="4" Color="White"></BoxView>
+                    <Image
+                        Grid.Row="1" Grid.Column="4"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Weather.Daily[3].Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}">
+                    </Image>
+                    <BoxView Grid.Row="2" Grid.Column="4" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[3].Temp.Max, StringFormat='{0} °C'}" Grid.Row="2" Grid.Column="4" HorizontalOptions="Center" TextColor="Red"/>
+                    <BoxView Grid.Row="3" Grid.Column="4" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[3].Temp.Min, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="4" HorizontalOptions="Center" TextColor="Blue"/>
+
+                    <!-- 6th Column -->
+                    <BoxView Grid.Row="0" Grid.Column="5" Color="White"></BoxView>
+                    <Label Grid.Row="0" Grid.Column="5" 
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Style="{StaticResource SmallLabel}" 
+                           Text="{Binding Weather.Daily[4].dDt, StringFormat='{0:dd MMM}'}"
+                           FontAttributes="Bold"/>
+                    <BoxView Grid.Row="1" Grid.Column="5" Color="White"></BoxView>
+                    <Image
+                        Grid.Row="1" Grid.Column="5"
+                        Aspect="AspectFill"
+                        HeightRequest="40"
+                        WidthRequest="40"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Weather.Daily[4].Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}">
+                    </Image>
+                    <BoxView Grid.Row="2" Grid.Column="5" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[4].Temp.Max, StringFormat='{0} °C'}" Grid.Row="2" Grid.Column="5" HorizontalOptions="Center" TextColor="Red"/>
+                    <BoxView Grid.Row="3" Grid.Column="5" Color="White"></BoxView>
+                    <Label Style="{StaticResource SmallLabel}" Text="{Binding Weather.Daily[4].Temp.Min, StringFormat='{0} °C'}" Grid.Row="3" Grid.Column="5" HorizontalOptions="Center" TextColor="Blue"/>
+
+                </Grid>
+                
+                
                 
             </VerticalStackLayout>
 
