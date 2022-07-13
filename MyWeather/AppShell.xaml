@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MyWeather.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:MyWeather.Views"
+    xmlns:local="clr-namespace:MyWeather"
+    Title="MyWeather">
+
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="BaseStyle" TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" Value="{StaticResource Primary}" />
+                <Setter Property="Shell.ForegroundColor" Value="White" />
+                <Setter Property="Shell.TitleColor" Value="White" />
+                <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
+                <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+                <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Dark={StaticResource DarkBackground}, Light={StaticResource LightBackground}}" />
+                <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}" />
+                <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Dark=#95FFFFFF, Light=#95000000}" />
+                <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Dark={StaticResource LightBackground}, Light={StaticResource DarkBackground}}" />
+            </Style>
+            <Style BasedOn="{StaticResource BaseStyle}" TargetType="ShellItem" ApplyToDerivedTypes="True" />
+        </ResourceDictionary>
+    </Shell.Resources>
+
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="100" BackgroundColor="DarkSlateBlue">
+            <Image Source="weather.png"/>
+        </Grid>
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem Title="Weather" Icon="cloud_moon_solid.png">
+        <ShellContent Title="Weather" Icon="building_solid.png"
+            ContentTemplate="{DataTemplate views:WeatherCitiesPage}" />
+        <ShellContent Title="Map" Icon="map_marked_alt_solid.png"
+            ContentTemplate="{DataTemplate views:WeatherMapPage}" />
+        <ShellContent Title="Help" Icon="question.png"
+            ContentTemplate="{DataTemplate views:WeatherHelpPage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Configure" Icon="gear_solid.svg">
+        <ShellContent Title="Cities" Icon="building_solid.png"
+            ContentTemplate="{DataTemplate views:CitiesPage}" />
+        <ShellContent Title="Search" Icon="search_solid.png"
+            ContentTemplate="{DataTemplate views:SearchPage}" />
+        <ShellContent Title="Configure" Icon="wrench_solid.png"
+            ContentTemplate="{DataTemplate views:ConfigurePage}"/>
+    </FlyoutItem>
+
+    <FlyoutItem Title="About" Icon="circle_info_solid.svg">
+        <ShellContent
+            ContentTemplate="{DataTemplate views:AboutPage}"/>
+    </FlyoutItem>
+
+</Shell>

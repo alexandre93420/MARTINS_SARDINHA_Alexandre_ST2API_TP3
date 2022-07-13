@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MyWeather.WeatherCityDetailsPage"
+    xmlns:viewmodel="clr-namespace:MyWeather.ViewModels"
+    x:DataType="viewmodel:WeatherCityDetailsViewModel"
+    Title="{Binding Weather.Name}">
+    <!-- Use City name instead -->
+    
+    
+    <ScrollView>
+        <VerticalStackLayout>
+            
+            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160, Auto">
+                <BoxView
+                    Grid.ColumnSpan="3"
+                    Background="{StaticResource Primary}"
+                    HeightRequest="160"
+                    HorizontalOptions="FillAndExpand" />
+                <Frame
+                    Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Margin="0,80,0,0"
+                    HeightRequest="160"
+                    WidthRequest="160"
+                    HorizontalOptions="Center" 
+                    Padding="0"
+                    IsClippedToBounds="True"
+                    CornerRadius="80">
+                    <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="city_not_found.png"
+                        WidthRequest="160"/>
+                        <!-- Use City image instead -->
+                </Frame>
+            </Grid>
+
+            <VerticalStackLayout Padding="10" Spacing="10">
+                <Button Text="Show on Map" 
+                    Command="{Binding OpenMapCommand}"
+                    HorizontalOptions="Center" 
+                    WidthRequest="200" 
+                    Margin="8"
+                    Style="{StaticResource ButtonOutline}"/>
+                <Image
+                        Aspect="AspectFill"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center"
+                        Source="{Binding Weather.Current.Weather[0].Icon, StringFormat='https://openweathermap.org/img/wn/{0}@2x.png'}"
+                        WidthRequest="160"/>
+                <Label Style="{StaticResource LargeLabel}" Text="{Binding Weather.Name}" />
+                <Label Style="{StaticResource MediumLabel}" Text="Sunrise and sunset:" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Weather.Current.dSunrise, StringFormat='Sunrise: {0}'}" />
+                <Label Style="{StaticResource MicroLabel}" Text="{Binding Weather.Current.dSunset, StringFormat='Sunset: {0}'}" />
+
+                <!--
+                "dt": 1657645534,
+                "sunrise": 1657598387,
+                "sunset": 1657655532,
+                "temp": 305.92,
+                "feels_like": 304.09,
+                "pressure": 1022,
+                "humidity": 23,
+                "dew_point": 282.08,
+                "uvi": 1.31,
+                "clouds": 0,
+                "visibility": 10000,
+                "wind_speed": 2.06,
+                "wind_deg": 30,
+                "weather": [
+                {
+                    "id": 800,
+                    "main": "Clear",
+                    "description": "clear sky",
+                    "icon": "01d"
+                }
+                -->
+                
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+    

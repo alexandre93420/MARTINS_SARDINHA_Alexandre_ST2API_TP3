@@ -1,0 +1,43 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWeather.Views.CitiesPage"
+             Title="Cities">
+
+    <VerticalStackLayout BackgroundColor="Silver">
+        <Button Text="Add New City" Margin="20, 10, 20, 10" Command="{Binding AddNewCityCommand}" />
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" x:Name="refreshView" 
+                     Command="{Binding LoadDataCommand}">
+            <CollectionView  Margin="30,20,30,30"
+                             ItemsSource="{Binding Cities}"                             
+                             SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
+                             SelectionChangedCommand="{Binding CitySelectedCommand}"
+                             SelectionMode="Single">
+                <!--
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="100" BackgroundColor="FloralWhite">
+                        <Image
+                            HorizontalOptions="Center"
+                            Source="city_not_found.png"
+                            VerticalOptions="Center" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                -->
+                
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="20" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <VerticalStackLayout Padding="15,10" Margin="10,5,10,5">
+                            <Label Text="{Binding CityID, StringFormat='ID: {0}'}" TextColor="Red"  FontSize="Title" Margin="0,0,0,20"/>
+                            <Label Text="{Binding CityName, StringFormat='Name: {0}'}" TextColor="Black"/>
+                            <Label Text="{Binding CityLon, StringFormat='Longitude: {0}'}" TextColor="Black"/>
+                            <Label Text="{Binding CityLat, StringFormat='Latitude: {0}'}" TextColor="Black"/>
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+    </VerticalStackLayout>
+    
+</ContentPage>

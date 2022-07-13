@@ -1,0 +1,10 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyWeather.Views.ConfigurePage"
+             Title="Configure">
+
+    <StackLayout Padding="10" Spacing="5">
+        <Label Text="Version 1.0.0" />
+        <Label Text="ConfigurePage" />
+    </StackLayout>
+</ContentPage>

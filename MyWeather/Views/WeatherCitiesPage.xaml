@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="MyWeather.Views.WeatherCitiesPage"
+    xmlns:model="clr-namespace:MyWeather.Models"
+    xmlns:viewmodel="clr-namespace:MyWeather.ViewModels"
+    x:DataType="viewmodel:WeatherCitiesViewModel"
+    Title="{Binding Title}">
+
+    <Grid
+        ColumnDefinitions="*,*"
+        ColumnSpacing="5"
+        RowDefinitions="*,Auto"
+        RowSpacing="0">
+
+        <RefreshView
+            Grid.ColumnSpan="2"
+            Command="{Binding GetWeatherCitiesCommand}"
+            IsRefreshing="{Binding IsRefreshing}">
+
+            <CollectionView ItemsSource="{Binding WeatherCities}"
+                             SelectionMode="None">
+                <!-- Add EmptyView
+                <CollectionView.EmptyView>
+                    <StackLayout Padding="100">
+                        <Image
+                            HorizontalOptions="CenterAndExpand"
+                            Source="nodata.png"
+                            VerticalOptions="CenterAndExpand" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                 -->
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" />
+                </CollectionView.ItemsLayout>
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Weather">
+                        <Grid Padding="10">
+                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer 
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:WeatherCitiesViewModel}}, Path=GoToWeatherCityDetailsCommand}"
+                                CommandParameter="{Binding .}"/>
+                                </Frame.GestureRecognizers>
+                                <Grid Padding="0" ColumnDefinitions="125,*">
+
+                                    <Image
+                                        Aspect="AspectFill"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        Source="{Binding Current.Weather[0].Icon, StringFormat='https://openweathermap.org/img/w/{0}.png'}"
+                                        />
+
+                                    <VerticalStackLayout
+                                        Grid.Column="1"
+                                        Padding="10">
+                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name, StringFormat='{0}'}" />
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Current.Weather[0].Main, StringFormat='Main: {0}'}" />
+                                        <Label Style="{StaticResource MicroLabel}" Text="{Binding Current.Weather[0].Description, StringFormat='Description: {0}'}" />
+                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding Current.Temp, StringFormat='Temperature: {0} °C'}" />
+                                        <Label Style="{StaticResource MicroLabel}" Text="{Binding Current.Humidity, StringFormat='Humidity: {0} %'}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+        </RefreshView>
+
+        <Button Text="Get Weather" 
+            Command="{Binding GetWeatherCitiesCommand}"
+            IsEnabled="{Binding IsNotBusy}"
+            Grid.Row="1"
+            Grid.Column="0"
+            Style="{StaticResource ButtonOutline}"
+            Margin="8"/>
+        
+        <ActivityIndicator IsVisible="{Binding IsBusy}"
+                           IsRunning="{Binding IsBusy}"
+                           HorizontalOptions="FillAndExpand"
+                           VerticalOptions="CenterAndExpand"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"/>
+
+    </Grid>
+
+</ContentPage>
